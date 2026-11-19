@@ -12,7 +12,7 @@ Users paste a tweet URL directly into the web application or interact with the T
 ## Prerequisites
 
 - **Node.js**: `>=22` (Node.js 22 LTS recommended, see `.nvmrc`)
-- **Package Manager**: `pnpm` (`>=12`)
+- **Package Manager**: `pnpm` (`>=12`) or `npm` (`>=10`) — dual package manager support is configured out of the box with both `pnpm-lock.yaml` and `package-lock.json`.
 
 ---
 
@@ -32,10 +32,14 @@ Users paste a tweet URL directly into the web application or interact with the T
    ```
 
 3. **Install dependencies**:
-
-   ```bash
-   pnpm install --frozen-lockfile
-   ```
+   - **Using pnpm (recommended)**:
+     ```bash
+     pnpm install --frozen-lockfile
+     ```
+   - **Using npm**:
+     ```bash
+     npm ci
+     ```
 
 4. **Prepare Environment Variables**:
    Copy `.env.example` to `.env.local` (all variables are optional during Task 1 scaffolding):
@@ -45,25 +49,30 @@ Users paste a tweet URL directly into the web application or interact with the T
    ```
 
 5. **Start Development Server**:
-   ```bash
-   pnpm dev
-   ```
+   - With pnpm:
+     ```bash
+     pnpm dev
+     ```
+   - With npm:
+     ```bash
+     npm run dev
+     ```
    Open [http://localhost:3001](http://localhost:3001) to view the application.
 
 ---
 
 ## Available Scripts
 
-| Script         | Command              | Description                                        |
-| -------------- | -------------------- | -------------------------------------------------- |
-| `dev`          | `next dev -p 3001`   | Starts the Next.js development server on port 3001 |
-| `build`        | `next build`         | Compiles the production build                      |
-| `start`        | `next start -p 3001` | Starts the production server on port 3001          |
-| `lint`         | `eslint`             | Runs ESLint analysis                               |
-| `typecheck`    | `tsc --noEmit`       | Runs TypeScript compiler checks                    |
-| `test`         | `vitest run`         | Runs unit and route tests with Vitest              |
-| `format`       | `prettier --write .` | Formats all files using Prettier                   |
-| `format:check` | `prettier --check .` | Verifies code formatting                           |
+| Script         | pnpm Command        | npm Command            | Description                                    |
+| -------------- | ------------------- | ---------------------- | ---------------------------------------------- |
+| `dev`          | `pnpm dev`          | `npm run dev`          | Starts Next.js development server on port 3001 |
+| `build`        | `pnpm build`        | `npm run build`        | Compiles the optimized production build        |
+| `start`        | `pnpm start`        | `npm run start`        | Starts the production server on port 3001      |
+| `lint`         | `pnpm lint`         | `npm run lint`         | Runs ESLint analysis                           |
+| `typecheck`    | `pnpm typecheck`    | `npm run typecheck`    | Runs TypeScript compiler checks                |
+| `test`         | `pnpm test`         | `npm run test`         | Runs unit and route tests with Vitest          |
+| `format`       | `pnpm format`       | `npm run format`       | Formats all files using Prettier               |
+| `format:check` | `pnpm format:check` | `npm run format:check` | Verifies code formatting                       |
 
 ---
 
@@ -91,10 +100,13 @@ Users paste a tweet URL directly into the web application or interact with the T
 │   └── healthz.test.ts     # Health endpoint tests
 ├── .env.example            # Documented environment variables template
 ├── .nvmrc                  # Node version (22)
+├── .prettierignore         # Prettier ignore patterns (includes lockfiles)
 ├── .prettierrc             # Prettier formatting config
 ├── eslint.config.mjs       # ESLint 9 flat configuration
 ├── next.config.ts          # Next.js configuration
 ├── package.json            # Project manifest and scripts
+├── package-lock.json       # npm lockfile (dual support)
+├── pnpm-lock.yaml          # pnpm lockfile (dual support)
 ├── tsconfig.json           # TypeScript configuration (strict mode)
 ├── vercel.json             # Vercel deployment configuration
 └── vitest.config.mts       # Vitest test runner configuration
@@ -130,7 +142,7 @@ All variables are optional in the scaffolding phase so the application can start
    - Click **Import** next to your GitHub repository.
    - **Framework Preset**: Verify it is set to `Next.js`.
    - **Node.js Version**: In Project Settings -> General, ensure Node.js is set to `22.x`.
-   - **Build & Development Settings**: Keep defaults (`pnpm install`, `pnpm build`).
+   - **Build & Development Settings**: Keep defaults (Vercel automatically detects `pnpm-lock.yaml` or `package-lock.json`).
 
 3. **Verify Deployment Health**:
    Once the build completes and the deployment is live, verify the health route:
