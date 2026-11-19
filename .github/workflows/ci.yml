@@ -15,31 +15,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-
       - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "pnpm"
+          cache: "npm"
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Check code formatting
-        run: pnpm format:check
+        run: npm ci
 
       - name: Run ESLint
-        run: pnpm lint
+        run: npm run lint
 
       - name: Run TypeScript typecheck
-        run: pnpm typecheck
+        run: npm run typecheck
 
       - name: Run test suite
-        run: pnpm test
+        run: npm run test
 
       - name: Build Next.js project
-        run: pnpm build
+        run: npm run build
