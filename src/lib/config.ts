@@ -46,6 +46,10 @@ export const configSchema = z.object({
     emptyStringToUndefined,
     z.string().min(1).optional()
   ),
+  SPIKE_SECRET: z.preprocess(
+    emptyStringToUndefined,
+    z.string().min(1).optional()
+  ),
 });
 
 export type Config = z.infer<typeof configSchema>;
